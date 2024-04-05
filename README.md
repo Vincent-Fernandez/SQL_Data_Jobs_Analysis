@@ -62,7 +62,7 @@ WITH top_paying_jobs AS (
     LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
     WHERE
         job_title_short = 'Data Analyst' AND 
-        job_location = 'France' AND 
+        lower(job_location) like '%france%' AND
         salary_year_avg IS NOT NULL
     ORDER BY
         salary_year_avg DESC
@@ -139,7 +139,7 @@ INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
 INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
 WHERE
     job_title_short = 'Data Analyst' 
-    AND job_work_from_home = True 
+    AND job_location = 'Anywhere'
 GROUP BY
     skills
 ORDER BY
